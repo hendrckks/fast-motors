@@ -16,7 +16,7 @@ const Navbar = () => {
           <li className="ml-1">
             <Link
               to="/Vehicles-in-kenya"
-              className={`hover:bg-[#c0ec60] hover:text-black p-4 rounded-sm duration-300 ease-in-out ${
+              className={`hover:bg-[#c0ec60] hover:text-black p-4 rounded-md duration-300 ease-in-out ${
                 location.pathname === "/Vehicles-in-kenya" &&
                 "bg-[#c0ec60] text-black"
               }`}
@@ -28,7 +28,7 @@ const Navbar = () => {
           <li className="ml-1">
             <Link
               to="/inventory"
-              className={`hover:bg-[#c0ec60] hover:text-black p-4 rounded-sm duration-300 ease-in-out ${
+              className={`hover:bg-[#c0ec60] hover:text-black p-4 rounded-md duration-300 ease-in-out ${
                 location.pathname === "/inventory" && "bg-[#c0ec60] text-black"
               }`}
             >
@@ -38,7 +38,7 @@ const Navbar = () => {
           <li className="ml-1">
             <Link
               to="/about"
-              className={`hover:bg-[#c0ec60] hover:text-black p-4 rounded-sm duration-300 ease-in-out ${
+              className={`hover:bg-[#c0ec60] hover:text-black p-4 rounded-md duration-300 ease-in-out ${
                 location.pathname === "/about" && "bg-[#c0ec60] text-black"
               }`}
             >
@@ -48,7 +48,7 @@ const Navbar = () => {
           <li className="ml-1">
             <Link
               to="/faq"
-              className={`hover:bg-[#c0ec60] hover:text-black p-4  rounded-sm duration-300 ease-in-out ${
+              className={`hover:bg-[#c0ec60] hover:text-black p-4  rounded-md duration-300 ease-in-out ${
                 location.pathname === "/faq" && "bg-[#c0ec60] text-black"
               }`}
             >
@@ -58,7 +58,7 @@ const Navbar = () => {
           <li className="ml-1">
             <Link
               to="/contact-us"
-              className={`hover:bg-[#c0ec60] hover:text-black p-4 rounded-sm duration-300 ease-in-out ${
+              className={`hover:bg-[#c0ec60] hover:text-black p-4 rounded-md duration-300 ease-in-out ${
                 location.pathname === "/contact-us" && "bg-[#c0ec60] text-black"
               }`}
             >

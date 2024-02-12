@@ -1,14 +1,20 @@
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
+import Footer from "./components/Footer";
 
 const App = () => {
   return (
     <Router>
-      <Navbar />
-      <Routes>
-        <Route path="/" Component={Home} />
-      </Routes>
+      <div
+        style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}
+      >
+        <Navbar />
+        <Routes style={{ flex: 1 }}>
+          <Route path="/" Component={Home} />
+        </Routes>
+        <Footer />
+      </div>
     </Router>
   );
 };
