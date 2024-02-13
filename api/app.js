@@ -4,6 +4,8 @@ import dotenv from "dotenv";
 import userRouter from "./routes/user.route.js";
 
 dotenv.config();
+const PORT = process.env.port || 5173;
+const app = express();
 
 mongoose
   .connect(process.env.MONGO)
@@ -14,13 +16,10 @@ mongoose
     console.log(error);
   });
 
-const app = express();
-
-const PORT = 5173;
 app.listen(PORT, () => {
   {
     console.log("Server is running on port 5173...");
   }
 });
 
-app.use("/api/user", userRouter);
+app.use("/user", userRouter);
