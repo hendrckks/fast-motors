@@ -34,14 +34,14 @@ const Footer = () => {
               </form>
               <button
                 type="submit"
-                className="rounded-md bg-[#c0ec60] text-black font-[600] p-2 text-[14px] hover:scale-105 ease-in-out duration-200 border border-transparent focus:outline-none focus:border-transparent focus:ring-0"
+                className="rounded-md bg-[#c0ec60] text-black font-[500] p-2 text-[14px] hover:scale-105 ease-in-out duration-200 border border-transparent focus:outline-none focus:border-transparent focus:ring-0"
               >
                 Subscribe
               </button>
             </div>
           </div>
-          <div>
-            <h2 className="text-white">Get in Touch</h2>
+          <div className="flex">
+            <h2 className="text-white justify-center">Socials</h2>
           </div>
         </div>
       </div>
