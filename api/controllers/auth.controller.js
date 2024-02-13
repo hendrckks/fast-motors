@@ -1,3 +1,15 @@
-export const signUp = (req, res) => {
-  console.log(req.body);
+import User from "../models/user.model.js";
+import bycrypt from "bcrypt";
+
+export const signUp = async (req, res) => {
+  const saltRounds = 10;
+  const { username, email, password } = req.body;
+  const hashpassword = await bycrypt.hashSync(password, saltRounds);
+  const newUser = new User({ username, email, password: hashpassword });
+  try {
+    await newUser.save();
+    res.status(201).json("user succesfully created");
+  } catch (err) {
+    res.status(500).json(err.message);
+  }
 };

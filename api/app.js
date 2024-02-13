@@ -3,8 +3,6 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 import userRouter from "./routes/user.route.js";
 import authRouter from "./routes/auth.route.js";
-
-import axios from "axios";
 const app = express();
 
 dotenv.config();
@@ -18,6 +16,8 @@ mongoose
   .catch((error) => {
     console.log(error);
   });
+
+app.use(express.json());
 
 app.listen(PORT, () => {
   {
