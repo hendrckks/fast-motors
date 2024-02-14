@@ -3,10 +3,14 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 import userRouter from "./routes/user.route.js";
 import authRouter from "./routes/auth.route.js";
+import cors from "cors";
+
 const app = express();
 
+app.use(cors());
+
 dotenv.config();
-const PORT = process.env.port || 5173;
+const PORT = 3000;
 
 mongoose
   .connect(process.env.MONGO)
@@ -20,9 +24,7 @@ mongoose
 app.use(express.json());
 
 app.listen(PORT, () => {
-  {
-    console.log("Server is running on port 5173...");
-  }
+  console.log("listening on port 3000...");
 });
 
 app.use("/api/user", userRouter);
