@@ -24,7 +24,6 @@ const Navbar = () => {
               Vehicles in Kenya
             </Link>
           </li>
-
           <li className="ml-1">
             <Link
               to="/inventory"
