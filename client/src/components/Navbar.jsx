@@ -65,6 +65,16 @@ const Navbar = () => {
               Contact
             </Link>
           </li>
+          <li className="ml-1">
+            <Link
+              to="/signup"
+              className={`hover:bg-[#c0ec60] hover:text-black p-4 rounded-md duration-300 ease-in-out ${
+                location.pathname === "/signup" && "bg-[#c0ec60] text-black"
+              }`}
+            >
+              Sign In
+            </Link>
+          </li>
         </ul>
       </div>
     </div>
