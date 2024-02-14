@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 const SignUp = () => {
   const [formData, setFormData] = useState({});
@@ -13,15 +14,23 @@ const SignUp = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      const res = await fetch("http://localhost:3000/api/auth/signup", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
-      const data = await res.json();
-      console.log(data);
+      // const res = await fetch("http://localhost:3000/api/auth/signup", {
+      //   method: "POST",
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      //   body: JSON.stringify(formData),
+      // });
+      const res = await axios.post(
+        "http://localhost:3000/auth/signup",
+        formData,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      console.log(res.data);
     } catch (error) {
       console.error("Error:", error);
     } finally {
@@ -43,10 +52,10 @@ const SignUp = () => {
             className="inputs pl-4 border border-transparent focus:outline-none focus:border-transparent focus:ring-0 self-center"
             placeholder="    Username"
             onChange={handleChange}
-            id="name"
+            id="username"
           />
           <input
-            type="email"
+            type="username"
             className="inputs pl-4 border border-transparent focus:outline-none focus:border-transparent focus:ring-0 self-center"
             placeholder="    Email"
             onChange={handleChange}
@@ -63,7 +72,7 @@ const SignUp = () => {
             disabled={loading}
             className="my-8 rounded-md bg-[#c0ec60] text-black font-[600] h-[50px] w-1/2 p-2 justify-center text-[14px] hover:scale-105 ease-in-out duration-200 border border-transparent focus:outline-none focus:border-transparent focus:ring-0 self-center" // Added self-center class
           >
-            {loading ? "Loading..." : "SIGN UP"}
+            {loading ? "LOADING..." : "SIGN UP"}
           </button>
         </form>
         <div className="flex justify-center">
