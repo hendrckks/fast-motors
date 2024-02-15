@@ -30,10 +30,12 @@ export const login = async (req, res, next) => {
     if (!validPassword) return;
     errorHandler(401, "ivalid Password");
     const token = jwt.sign({ id: validUser._id }, process.env.JWT_SECRET);
+    //to prevent the password being sent to the client
+    const { password: pass, ...rest } = validUser._doc;
     res
       .cookie("access_token", token, { httpOnly: true })
       .status(200)
-      .json(validUser);
+      .json(rest);
   } catch (err) {
     next(err);
   }
