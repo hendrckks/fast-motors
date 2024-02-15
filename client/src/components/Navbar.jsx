@@ -56,7 +56,7 @@ const Navbar = () => {
           </li>
           <li className="ml-1">
             <Link
-              to="/contact-us"
+              to="/contact"
               className={`hover:bg-[#c0ec60] hover:text-black p-4 rounded-md duration-300 ease-in-out ${
                 location.pathname === "/contact-us" && "bg-[#c0ec60] text-black"
               }`}
