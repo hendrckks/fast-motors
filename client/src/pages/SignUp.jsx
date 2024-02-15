@@ -79,11 +79,8 @@ const SignUp = () => {
         </form>
         <div className="flex justify-center">
           <p className="text-neutral-500">Have an account?</p>
-          <Link
-            className="ml-2 text-neutral-2 onchange={HandleChange}00"
-            to="/api/auth/login"
-          >
-            Sign In
+          <Link className="ml-2 text-neutral-200" to="/login">
+            Login In
           </Link>
         </div>
       </div>
