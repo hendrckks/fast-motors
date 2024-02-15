@@ -31,6 +31,7 @@ app.listen(PORT, () => {
 app.use("/api/user", userRouter);
 app.use("/auth", authRouter);
 
+//error middleware
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;
   const message = err.message || "internal server error";
