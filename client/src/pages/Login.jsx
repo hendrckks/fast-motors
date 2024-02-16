@@ -1,10 +1,17 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  logInStart,
+  logInFailure,
+  logInSuccess,
+} from "../redux/user/userSlice.js";
 
 const Login = () => {
+  const dispatch = useDispatch();
   const [formData, setFormData] = useState({});
-  const [loading, setLoading] = useState(false);
+  const { loading, error } = useSelector((state) => state.User);
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -13,8 +20,8 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
     try {
+      dispatch(logInStart());
       // const res = await fetch("http://localhost:3000/api/auth/signup", {
       //   method: "POST",
       //   headers: {
@@ -31,12 +38,15 @@ const Login = () => {
           },
         }
       );
-      console.log(res.data);
+      const data = res.data;
+      if (data.success === false) {
+        dispatch(logInFailure(data.message));
+        return;
+      }
+      dispatch(logInSuccess(data));
       navigate("/");
     } catch (error) {
-      console.error("Error:", error);
-    } finally {
-      setLoading(false);
+      dispatch(logInFailure(error.message));
     }
   };
   console.log(formData);
@@ -71,11 +81,12 @@ const Login = () => {
           </button>
         </form>
         <div className="flex justify-center">
-          <p className="text-neutral-500">Don't have an account?</p>
+          <p className="text-neutral-500">Dont have an account?</p>
           <Link className="ml-2 text-neutral-200" to="/signup">
             Sign In
           </Link>
         </div>
+        {error && <p>{error}</p>}
       </div>
     </div>
   );

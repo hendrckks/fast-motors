@@ -119,9 +119,9 @@ function Contact() {
         </div>
       </div> */}
       <div className="ml-8 sm:mt-[8px] mt-10">
-        <div className="border-2 block text-black bg-white border-transparent p-20 w-[100%] sm:w-[550px]">
-          <h2 className="sm:text-3xl text-[20px] font-semibold flex justify-center ">
-            <span>TELL US ABOUT YOU</span>
+        <div className="border-[1px] rounded-lg block text-white bg-[#ffffff0f] border-white font-normal p-20 w-[100%] sm:w-[550px] ">
+          <h2 className="sm:text-3xl  text-[20px] flex justify-center ">
+            <span>ASK US A QUESTION</span>
           </h2>
           <p className="py-[8px] mt-2 flex justify-center text-[12px]">
             <span>Email</span>: optimumoutreach1@gmail.com
@@ -143,7 +143,7 @@ function Contact() {
                 <div>
                   <input
                     type="text"
-                    className="mt-2 py-2 w-[100%] text-black outline-none bg-transparent focus:ring-0 border-[0.3px] border-black border-r-transparent border-l-transparent border-t-transparent"
+                    className="mt-2 py-2 w-[100%] text-white outline-none bg-transparent focus:ring-0 border-[0.3px] border-black border-r-transparent border-l-transparent border-t-transparent"
                     placeholder="First Name*"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
@@ -203,7 +203,7 @@ function Contact() {
                   />
                 </div>
               </div>
-              <div className="flex justify-center items-center h-10 mt-10 border-[1.5px] text-[14px] hover:bg-black hover:border-white hover:text-white border-black ">
+              <div className="flex justify-center items-center h-10 mt-10 border-[1.5px] text-[14px] bg-[#c0ec60] text-black rounded-md border-transparent">
                 <button type="submit" className="w-[100%] font-semibold">
                   SUBMIT
                 </button>

@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
 
 const Footer = () => {
+  const currentYear = new Date().getFullYear();
+
   return (
     <div className="bg-[#112744] h-[300px] flex justify-center font-sans">
       <div className="bg-[#091422] w-[98%] h-[90%] rounded-[50px] text-neutral-200 ">
@@ -28,13 +30,13 @@ const Footer = () => {
               <form>
                 <input
                   type="text"
-                  className="h-[35px] w-60 rounded-sm bg-[#ffffff0f] border border-transparent focus:outline-none focus:border-transparent focus:ring-0"
+                  className="h-[35px] w-60 rounded-sm bg-[#ffffff0f] border border-transparent focus:outline-none focus:border-transparent focus:ring-0 text-[14px]"
                   placeholder="   Email Address"
                 />
               </form>
               <button
                 type="submit"
-                className="rounded-md bg-[#c0ec60] text-black font-[500] p-2 text-[14px] hover:scale-105 ease-in-out duration-200 border border-transparent focus:outline-none focus:border-transparent focus:ring-0"
+                className="rounded-md bg-[#c0ec60] text-black font-[600] p-2 text-[14px] hover:scale-105 ease-in-out duration-200 border border-transparent focus:outline-none focus:border-transparent focus:ring-0"
               >
                 Subscribe
               </button>
@@ -43,6 +45,11 @@ const Footer = () => {
           <div className="flex">
             <h2 className="text-white justify-center">Socials</h2>
           </div>
+        </div>
+        <div className="flex justify-center mt-14">
+          <p className="text-[13px]">
+            © {currentYear} fastkar All rights reserved.
+          </p>
         </div>
       </div>
     </div>

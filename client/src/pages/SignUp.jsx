@@ -80,7 +80,7 @@ const SignUp = () => {
         <div className="flex justify-center">
           <p className="text-neutral-500">Have an account?</p>
           <Link className="ml-2 text-neutral-200" to="/login">
-            Login In
+            LogIn
           </Link>
         </div>
       </div>
