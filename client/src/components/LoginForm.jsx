@@ -29,7 +29,7 @@ const LoginForm = ({ error, handleChange, handleSubmit, loading }) => {
             disabled={loading}
             className="mt-8 rounded-md bg-[#c0ec60] text-black font-[600] h-[50px] w-1/2 p-2 justify-center text-[14px] hover:scale-105 ease-in-out duration-200 border border-transparent focus:outline-none focus:border-transparent focus:ring-0 self-center"
           >
-            {loading ? "LOADING..." : "LOGIN"}
+            {loading ? "LOADING..." : "Log In"}
           </button>
           <OAuth />
         </form>
