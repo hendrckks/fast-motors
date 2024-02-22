@@ -23,12 +23,13 @@ export const signUp = async (req, res, next) => {
 export const login = async (req, res, next) => {
   const { email, password } = req.body;
   try {
+    if (email === "" || password === "")
+      return next(errorHandler(400, "All fields reuired"));
     const validUser = await User.findOne({ email: email });
-    if (!validUser) return;
-    errorHandler(404, "user not found");
+    if (!validUser) return next(errorHandler(404, "user not found"));
     const validPassword = bycrypt.compareSync(password, validUser.password);
-    if (!validPassword) return;
-    errorHandler(401, "ivalid Password");
+    if (!validPassword) return next(errorHandler(401, "invalid Password"));
+
     const token = jwt.sign({ id: validUser._id }, process.env.JWT_SECRET);
     //to prevent the password being sent to the client
     const { password: pass, ...rest } = validUser._doc;
