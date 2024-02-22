@@ -34,13 +34,13 @@ const SignupForm = ({ loading, handleChange, handleSubmit }) => {
           />
           <button
             disabled={loading}
-            className="my-8 rounded-md bg-[#c0ec60] text-black font-[600] h-[50px] w-1/2 p-2 justify-center text-[14px] hover:scale-105 ease-in-out duration-200 border border-transparent focus:outline-none focus:border-transparent focus:ring-0 self-center" // Added self-center class
+            className="mt-8 rounded-md bg-[#c0ec60] text-black font-[600] h-[50px] w-1/2 p-2 justify-center text-[14px] hover:scale-105 ease-in-out duration-200 border border-transparent focus:outline-none focus:border-transparent focus:ring-0 self-center" // Added self-center class
           >
             {loading ? "LOADING..." : "SIGN UP"}
           </button>
           <OAuth />
         </form>
-        <div className="flex justify-center">
+        <div className="flex justify-center mt-4">
           <p className="text-neutral-500">Have an account?</p>
           <Link className="ml-2 text-neutral-200" to="/login">
             LogIn

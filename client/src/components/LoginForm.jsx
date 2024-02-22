@@ -27,13 +27,13 @@ const LoginForm = ({ error, handleChange, handleSubmit, loading }) => {
           />
           <button
             disabled={loading}
-            className="my-8 rounded-md bg-[#c0ec60] text-black font-[600] h-[50px] w-1/2 p-2 justify-center text-[14px] hover:scale-105 ease-in-out duration-200 border border-transparent focus:outline-none focus:border-transparent focus:ring-0 self-center"
+            className="mt-8 rounded-md bg-[#c0ec60] text-black font-[600] h-[50px] w-1/2 p-2 justify-center text-[14px] hover:scale-105 ease-in-out duration-200 border border-transparent focus:outline-none focus:border-transparent focus:ring-0 self-center"
           >
             {loading ? "LOADING..." : "LOGIN"}
           </button>
           <OAuth />
         </form>
-        <div className="flex justify-center">
+        <div className="flex justify-center mt-4">
           <p className="text-neutral-500">Dont have an account?</p>
           <Link className="ml-2 text-neutral-200" to="/signup">
             SignUp
