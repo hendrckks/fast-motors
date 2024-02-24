@@ -3,8 +3,10 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import { useState } from "react";
+import { useRef } from "react";
 
 const Profile = () => {
+  const fileRef = useRef(null);
   const { currentUser } = useSelector((state) => state.user);
   const [anchorEl, setAnchorEl] = useState(null);
 
@@ -23,8 +25,15 @@ const Profile = () => {
         <div className="mt-20 flex flex-col">
           <img
             src={currentUser.avatar}
+            onClick={() => fileRef.current.click()}
             className="rounded-full self-center object-cover h-32 w-32 cursor-pointer"
             alt="profile image"
+          />
+          <input
+            type="file"
+            ref={fileRef}
+            className="hidden"
+            accept="image/*"
           />
           <h2 className="text-white self-center text-[20px] mt-4">
             {currentUser.username}
