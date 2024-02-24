@@ -21,7 +21,7 @@ body {
 
 .inputs {
   height: 60px;
-  width: 500px;
+  /* width: 500px; */
   background-color: #ffffff0f;
   border-radius: 5px;
 }

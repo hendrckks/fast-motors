@@ -5,6 +5,8 @@ import Footer from "./components/Footer";
 import SignUp from "./pages/SignUp";
 import Login from "./pages/Login";
 import Contact from "./pages/Contact";
+import Profile from "./pages/Profile";
+import PrivateRoute from "./components/PrivateRoute";
 
 const App = () => {
   return (
@@ -18,6 +20,9 @@ const App = () => {
           <Route path="/signup" Component={SignUp} />
           <Route path="/login" Component={Login} />
           <Route path="/contact" Component={Contact} />
+          <Route Component={PrivateRoute}>
+            <Route path="/profile" Component={Profile} />
+          </Route>
         </Routes>
         <Footer />
       </div>
