@@ -9,6 +9,7 @@ const Profile = () => {
   const fileRef = useRef(null);
   const { currentUser } = useSelector((state) => state.user);
   const [anchorEl, setAnchorEl] = useState(null);
+  const [file, setFile] = useState(undefined);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -17,7 +18,21 @@ const Profile = () => {
   const handleClose = () => {
     setAnchorEl(null);
   };
+  //firebase storage rules
+  // rules_version = '2';
 
+  // // Craft rules based on data in your Firestore database
+  // // allow write: if firestore.get(
+  // //    /databases/(default)/documents/users/$(request.auth.uid)).data.isAdmin;
+  // service firebase.storage {
+  //   match /b/{bucket}/o {
+  //     match /{allPaths=**} {
+  //       allow read;
+  //       allow write: if request.resource.size < 2 * 1024 * 1024 &&
+  //       request.resource.contentType.matches("image/.*")
+  //     }
+  //   }
+  // }
   return (
     <div className="h-screen flex flex-col my-14 items-center bg-[#112744]">
       <h1 className="font-semibold text-neutral-300 text-[30px]">Profile</h1>
@@ -30,6 +45,7 @@ const Profile = () => {
             alt="profile image"
           />
           <input
+            onChange={(e) => setFile(e.target.files[0])}
             type="file"
             ref={fileRef}
             className="hidden"
