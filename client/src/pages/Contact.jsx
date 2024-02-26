@@ -119,7 +119,7 @@ function Contact() {
         </div>
       </div> */}
       <div className="ml-8 sm:mt-[8px] mt-10">
-        <div className="border-[1px] rounded-lg block text-white bg-[#ffffff0f] border-white font-normal p-20 w-[100%] sm:w-[550px] ">
+        <div className=" rounded-lg block text-white bg-[#192f4e] border-white font-normal p-20 w-[100%] sm:w-[550px] ">
           <h2 className="sm:text-3xl  text-[20px] flex justify-center ">
             <span>ASK US A QUESTION</span>
           </h2>

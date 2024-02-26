@@ -38,6 +38,9 @@ const SignupForm = ({ loading, handleChange, handleSubmit }) => {
           >
             {loading ? "LOADING..." : "Sign Up"}
           </button>
+          <div className="self-center">
+            <p className="text-neutral-500">or</p>
+          </div>
           <OAuth />
         </form>
         <div className="flex justify-center mt-4">

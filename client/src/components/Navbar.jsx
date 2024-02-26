@@ -1,3 +1,4 @@
+import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import FASTCARR from "../assets/fastkar4.png";
 import { useSelector } from "react-redux";
@@ -66,7 +67,7 @@ const Navbar = () => {
               Contact
             </Link>
           </li>
-          <li className="ml-2">
+          <li className="ml-4">
             {currentUser ? (
               <Link to="/profile">
                 <img

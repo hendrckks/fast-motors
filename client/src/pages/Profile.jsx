@@ -2,14 +2,27 @@ import { useSelector } from "react-redux";
 import MenuIcon from "@mui/icons-material/Menu";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
-import { useState } from "react";
-import { useRef } from "react";
+import { useState, useRef, useEffect, React } from "react";
+import {
+  getDownloadURL,
+  getStorage,
+  ref,
+  uploadBytesResumable,
+} from "firebase/storage";
+import { app } from "../firebase";
+// import { Hidden } from "@mui/material";
 
 const Profile = () => {
   const fileRef = useRef(null);
   const { currentUser } = useSelector((state) => state.user);
   const [anchorEl, setAnchorEl] = useState(null);
   const [file, setFile] = useState(undefined);
+  const [fileperc, setFilePerc] = useState(0);
+  const [errorUpload, setErrorUpload] = useState(false);
+  const [formData, setFormData] = useState({});
+  console.log(formData);
+
+  console.log(file);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -33,6 +46,37 @@ const Profile = () => {
   //     }
   //   }
   // }
+
+  useEffect(() => {
+    if (file) {
+      handleUpload(file);
+    }
+  }, [file]);
+
+  const handleUpload = (file) => {
+    const storage = getStorage(app);
+    const fileName = new Date().getTime + file.name;
+    const storageRef = ref(storage, fileName);
+    const uploadTask = uploadBytesResumable(storageRef, file);
+
+    uploadTask.on(
+      "stage_changed",
+      (snapshot) => {
+        const progress =
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        setFilePerc(Math.round(progress));
+      },
+      (error) => {
+        setErrorUpload(true);
+        console.log(error);
+      },
+      () => {
+        getDownloadURL(uploadTask.snapshot.ref).then((downloadURl) => {
+          setFormData({ ...formData, avatar: downloadURl });
+        });
+      }
+    );
+  };
   return (
     <div className="h-screen flex flex-col my-14 items-center bg-[#112744]">
       <h1 className="font-semibold text-neutral-300 text-[30px]">Profile</h1>
@@ -51,6 +95,23 @@ const Profile = () => {
             className="hidden"
             accept="image/*"
           />
+          {file && (
+            <>
+              {fileperc < 100 ? (
+                <h2 className="text-green-700 self-center text-[16px] mt-4">
+                  {fileperc}% uploaded
+                </h2>
+              ) : (
+                <p className="text-green-700 self-center mt-4">
+                  Image Uploaded Succesfully
+                </p>
+              )}
+              {errorUpload && (
+                <p className="text-red-700">Error Uploading Image</p>
+              )}
+            </>
+          )}
+
           <h2 className="text-white self-center text-[20px] mt-4">
             {currentUser.username}
           </h2>

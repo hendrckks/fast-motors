@@ -31,6 +31,9 @@ const LoginForm = ({ error, handleChange, handleSubmit, loading }) => {
           >
             {loading ? "LOADING..." : "Log In"}
           </button>
+          <div className="self-center">
+            <p className="text-neutral-500">or</p>
+          </div>
           <OAuth />
         </form>
         <div className="flex justify-center mt-4">
