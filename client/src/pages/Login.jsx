@@ -33,12 +33,13 @@ const Login = () => {
           },
         }
       );
-      const data = res.data;
-      if (data.success === false) {
-        dispatch(logInFailure(data.message));
-        return console.log(data.message);
+      console.log(res);
+
+      if (res.status !== 200) {
+        dispatch(logInFailure(res.data.message));
+        return console.log(res.data.message);
       }
-      dispatch(logInSuccess(data));
+      dispatch(logInSuccess(res));
       navigate("/");
     } catch (error) {
       dispatch(logInFailure(error.message));

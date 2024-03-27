@@ -33,6 +33,7 @@ const Profile = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const token = Cookies.get("access_token");
+  console.log("Token:", token);
 
   console.log(formData);
 
@@ -47,7 +48,7 @@ const Profile = () => {
     try {
       dispatch(updateUserStart());
       const res = await axios.post(
-        `http://localhost:3000/user/update/${currentUser._id}`,
+        `http://localhost:3000/user/update/${currentUser.data._id}`,
         formData,
         {
           headers: {
@@ -58,12 +59,12 @@ const Profile = () => {
       );
       console.log(res);
       if (res.status !== 200) {
-        dispatch(updateUserFailure(res.data.message));
-        return console.log(res.data.message);
+        dispatch(updateUserFailure(res.data));
+        return console.log(res.data.statusText);
       }
       dispatch(updateUserSuccess(res));
     } catch (error) {
-      dispatch(updateUserFailure(error.message));
+      dispatch(updateUserFailure(error));
     }
   };
 

@@ -26,7 +26,7 @@ const updateForm = ({
       <div className="flex justify-center mt-10 bg-[#192f4e] backdrop-filter backdrop-blur-lg h-fit w-2/3 rounded-[20px] shadow-[0 8px 32px 0 rgba(0, 0, 0, 0.37)]">
         <div className="mt-20 flex flex-col">
           <img
-            src={currentUser.avatar}
+            src={currentUser.data.avatar}
             onClick={() => fileRef.current.click()}
             className="rounded-full self-center object-cover h-32 w-32 cursor-pointer"
             alt="profile image"
@@ -55,7 +55,7 @@ const updateForm = ({
             </>
           )}
           <h2 className="text-white self-center text-[20px] mt-4">
-            {currentUser.username}
+            {currentUser.data.username}
           </h2>
           <div>
             <form
@@ -67,24 +67,24 @@ const updateForm = ({
                 className="inputs sm:w-[500px] pl-4 border border-transparent focus:outline-none focus:border-transparent focus:ring-0 self-center text-white"
                 placeholder="    Username"
                 onChange={handleChange}
-                defaultValue={currentUser.username}
-                // id="username"
+                defaultValue={currentUser.data.username}
+                id="username"
               />
               <input
                 type="email"
                 className="inputs sm:w-[500px] pl-4 border border-transparent focus:outline-none focus:border-transparent focus:ring-0 self-center text-white"
                 placeholder="    email"
                 onChange={handleChange}
-                defaultValue={currentUser.email}
-                // id="username"
+                defaultValue={currentUser.data.email}
+                id="email"
               />
               <input
                 type="password"
                 className="inputs text-white sm:w-[500px] pl-4 border border-transparent focus:outline-none focus:border-transparent focus:ring-0 self-center"
                 placeholder="    password"
                 onChange={handleChange}
-                defaultValue={currentUser.password}
-                // id="username"
+                defaultValue={currentUser.data.password}
+                id="password"
               />
               <button
                 disabled={loading}
@@ -134,9 +134,9 @@ updateForm.propTypes = {
   handleClick: PropTypes.func.isRequired,
   handleDelete: PropTypes.func.isRequired,
   errorUpload: PropTypes.bool.isRequired,
-  anchorEl: PropTypes.null.isRequired,
-  file: PropTypes.undefined.isRequired,
-  fileRef: PropTypes.null.isRequired,
+  anchorEl: PropTypes.object,
+  file: PropTypes.object,
+  fileRef: PropTypes.object,
   setFile: PropTypes.func.isRequired,
   fileperc: PropTypes.number.isRequired,
   currentUser: PropTypes.object.isRequired,

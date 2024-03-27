@@ -72,7 +72,7 @@ const Navbar = () => {
               <Link to="/profile">
                 <img
                   className="h-9 w-9 rounded-full object-cover"
-                  src={currentUser.avatar}
+                  src={currentUser.data.avatar}
                   alt="profile"
                 />
               </Link>
