@@ -32,11 +32,10 @@ export const login = async (req, res, next) => {
 
     const token = jwt.sign({ id: validUser._id }, process.env.JWT_SECRET);
     //to prevent the password being sent to the client
-    const { password: pass, ...rest } = validUser._doc;
-    res
-      .cookie("access_token", token, { httpOnly: true })
-      .status(200)
-      .json(rest);
+    const { password: pass, ...user } = validUser._doc;
+    user.access_token = token;
+
+    res.cookie("access_token", token, { secure: true }).status(200).json(user);
   } catch (err) {
     next(err);
   }
@@ -48,11 +47,11 @@ export const google = async (req, res, next) => {
     const user = await User.findOne({ email: req.body.email });
     if (user) {
       const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
-      const { password: pass, ...rest } = user._doc;
+      const { password: pass, ...user } = user._doc;
       res
         .cookie("access_token", token, { httpOnly: true })
         .status(200)
-        .json(rest);
+        .json(user);
     } else {
       const generatePassword = Math.random().toString(36).slice(-8);
       const hashedPassword = bycrypt.hashSync(generatePassword, saltRounds);
@@ -66,11 +65,12 @@ export const google = async (req, res, next) => {
       });
       await newUser.save();
       const token = jwt.sign({ id: newUser._id }, process.env.JWT_SECRET);
-      const { password: pass, ...rest } = newUser._doc;
+      const { password: pass, ...user } = newUser._doc;
+      console.log(token);
       res
         .cookie("access_token", token, { httpOnly: true })
         .status(200)
-        .json(rest);
+        .json(user);
     }
   } catch (err) {
     next(err);

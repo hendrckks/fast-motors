@@ -1,7 +1,4 @@
-import { useSelector } from "react-redux";
-import MenuIcon from "@mui/icons-material/Menu";
-import Menu from "@mui/material/Menu";
-import MenuItem from "@mui/material/MenuItem";
+import { useDispatch, useSelector } from "react-redux";
 import { useState, useRef, useEffect, React } from "react";
 import {
   getDownloadURL,
@@ -9,20 +6,66 @@ import {
   ref,
   uploadBytesResumable,
 } from "firebase/storage";
+import UpdateForm from "../components/UpdateForm.jsx";
 import { app } from "../firebase";
+import {
+  deleteUserStart,
+  deleteUserSuccess,
+  deleteUserFailure,
+  updateUserStart,
+  updateUserFailure,
+  updateUserSuccess,
+} from "../redux/user/userSlice.js";
+import axios from "axios";
+import { useNavigate } from "react-router";
+import Cookies from "js-cookie";
+
 // import { Hidden } from "@mui/material";
 
 const Profile = () => {
   const fileRef = useRef(null);
-  const { currentUser } = useSelector((state) => state.user);
+  const { currentUser, loading, error } = useSelector((state) => state.user);
   const [anchorEl, setAnchorEl] = useState(null);
   const [file, setFile] = useState(undefined);
   const [fileperc, setFilePerc] = useState(0);
   const [errorUpload, setErrorUpload] = useState(false);
   const [formData, setFormData] = useState({});
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const token = Cookies.get("access_token");
+
   console.log(formData);
 
   console.log(file);
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.id]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      dispatch(updateUserStart());
+      const res = await axios.post(
+        `http://localhost:3000/user/update/${currentUser._id}`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      console.log(res);
+      if (res.status !== 200) {
+        dispatch(updateUserFailure(res.data.message));
+        return console.log(res.data.message);
+      }
+      dispatch(updateUserSuccess(res));
+    } catch (error) {
+      dispatch(updateUserFailure(error.message));
+    }
+  };
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -31,6 +74,7 @@ const Profile = () => {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
   //firebase storage rules
   // rules_version = '2';
 
@@ -46,6 +90,27 @@ const Profile = () => {
   //     }
   //   }
   // }
+
+  const handleDelete = async () => {
+    try {
+      dispatch(deleteUserStart());
+
+      const res = await axios.delete(
+        `http://localhost:3000/user/delete/${currentUser._id}`
+      );
+      const data = res.data;
+
+      if (data.success === false) {
+        dispatch(deleteUserFailure(data.message));
+        return;
+      }
+      navigate("/auth/signup");
+      dispatch(deleteUserSuccess(data.message));
+    } catch (error) {
+      dispatch(deleteUserFailure(error.message));
+    }
+    setAnchorEl(null);
+  };
 
   useEffect(() => {
     if (file) {
@@ -78,94 +143,22 @@ const Profile = () => {
     );
   };
   return (
-    <div className="h-screen flex flex-col my-14 items-center bg-[#112744]">
-      <h1 className="font-semibold text-neutral-300 text-[30px]">Profile</h1>
-      <div className="flex justify-center mt-10 bg-[#192f4e] backdrop-filter backdrop-blur-lg h-fit w-2/3 rounded-[20px] shadow-[0 8px 32px 0 rgba(0, 0, 0, 0.37)]">
-        <div className="mt-20 flex flex-col">
-          <img
-            src={currentUser.avatar}
-            onClick={() => fileRef.current.click()}
-            className="rounded-full self-center object-cover h-32 w-32 cursor-pointer"
-            alt="profile image"
-          />
-          <input
-            onChange={(e) => setFile(e.target.files[0])}
-            type="file"
-            ref={fileRef}
-            className="hidden"
-            accept="image/*"
-          />
-          {file && (
-            <>
-              {fileperc < 100 ? (
-                <h2 className="text-green-700 self-center text-[16px] mt-4">
-                  {fileperc}% uploaded
-                </h2>
-              ) : (
-                <p className="text-green-700 self-center mt-4">
-                  Image Uploaded Succesfully
-                </p>
-              )}
-              {errorUpload && (
-                <p className="text-red-700">Error Uploading Image</p>
-              )}
-            </>
-          )}
-
-          <h2 className="text-white self-center text-[20px] mt-4">
-            {currentUser.username}
-          </h2>
-          <div>
-            <form className="flex flex-col items-center gap-4 py-4">
-              <input
-                type="text"
-                className="inputs sm:w-[500px] pl-4 border border-transparent focus:outline-none focus:border-transparent focus:ring-0 self-center "
-                placeholder="    Username"
-                id="username"
-              />
-              <input
-                type="email"
-                className="inputs sm:w-[500px] pl-4 border border-transparent focus:outline-none focus:border-transparent focus:ring-0 self-center"
-                placeholder="    email"
-                id="username"
-              />
-              <input
-                type="password"
-                className="inputs sm:w-[500px] pl-4 border border-transparent focus:outline-none focus:border-transparent focus:ring-0 self-center"
-                placeholder="    password"
-                id="username"
-              />
-              <button className="mt-8 disabled:opacity-80 rounded-md bg-[#c0ec60] text-black font-[600] h-[50px] w-1/2 p-2 justify-center text-[14px] hover:scale-105 ease-in-out duration-200 border border-transparent focus:outline-none focus:border-transparent focus:ring-0 self-center">
-                Update
-              </button>
-              <button className=" disabled:opacity-80 rounded-md bg-[#c0ec60] text-black font-[600] h-[50px] w-1/2 p-2 justify-center text-[14px] hover:scale-105 ease-in-out duration-200 border border-transparent focus:outline-none focus:border-transparent focus:ring-0 self-center">
-                Create Listing
-              </button>
-            </form>
-          </div>
-        </div>
-        <MenuIcon
-          onClick={handleClick}
-          className="text-white absolute cursor-pointer hover:scale-110 ease-in-out duration-300 transition-transform right-40 top-10"
-        />
-        <Menu
-          anchorEl={anchorEl}
-          open={Boolean(anchorEl)}
-          onClose={handleClose}
-          className="mt-2"
-        >
-          <MenuItem onClick={handleClose}>
-            <p className="font-semibold">Existing Listings</p>
-          </MenuItem>
-          <MenuItem onClick={handleClose}>
-            <p className="font-semibold">Delete Account</p>
-          </MenuItem>
-          <MenuItem onClick={handleClose}>
-            <p className="font-semibold">Logout</p>
-          </MenuItem>
-        </Menu>
-      </div>
-    </div>
+    <UpdateForm
+      handleDelete={handleDelete}
+      fileRef={fileRef}
+      file={file}
+      anchorEl={anchorEl}
+      fileperc={fileperc}
+      setFile={setFile}
+      errorUpload={errorUpload}
+      handleChange={handleChange}
+      handleSubmit={handleSubmit}
+      handleClick={handleClick}
+      handleClose={handleClose}
+      loading={loading}
+      error={error}
+      currentUser={currentUser}
+    />
   );
 };
 

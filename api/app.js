@@ -31,7 +31,7 @@ app.listen(PORT, () => {
   console.log("listening on port 3000...");
 });
 
-app.use("/api/user", userRouter);
+app.use("/user", userRouter);
 app.use("/auth", authRouter);
 
 //error middleware
