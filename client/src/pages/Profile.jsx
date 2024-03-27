@@ -18,7 +18,7 @@ import {
 } from "../redux/user/userSlice.js";
 import axios from "axios";
 import { useNavigate } from "react-router";
-import Cookies from "js-cookie";
+// import Cookies from "js-cookie";
 
 // import { Hidden } from "@mui/material";
 
@@ -32,7 +32,7 @@ const Profile = () => {
   const [formData, setFormData] = useState({});
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const token = Cookies.get("access_token");
+  const token = currentUser.data.access_token;
   console.log("Token:", token);
 
   console.log(formData);
